@@ -2,5 +2,5 @@
     (princ "Ingrese los grados a convertir(F): ")
     (setq grados (read))
     (*(/ 5 9) ( - grados 32)	
-))
+)
 (conversor)
