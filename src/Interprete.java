@@ -22,7 +22,7 @@ public class Interprete {
 	public void leerDocumento() {
 		String texto = new String();
 		try {
-			FileReader fr = new FileReader("./assets/prueba.txt");
+			FileReader fr = new FileReader("./assets/datos.txt");
 			BufferedReader entrada = new BufferedReader(fr); 
 			String s;
 			
@@ -43,23 +43,66 @@ public class Interprete {
 		}
 	}
 	
+//	public void proceso() {
+//		String iterated = "";
+//		String stringFound = "";
+//		int stateString = 0;
+//		for(String linea: codigo) {
+//			for(char x: linea.toCharArray()) {
+//				iterated += x;	
+//				
+//				if(iterated.equals("\t") || iterated.equals(" ")) {
+//					iterated = "";
+//				} 
+//				//System.out.println(iterated);
+//				if(iterated.equals("princ")) {
+//					System.out.println("Print encontrado");
+//					iterated = "";
+//				}
+//				if(stateString == 1) {
+//					stringFound += x;
+//				}
+//				if(x == '\"') {
+//					if(stateString == 0) {
+//						stateString = 1;
+//					}
+//					else{
+//						System.out.println("String encontrado: ");
+//						System.out.println(stringFound);
+//						stringFound = "";
+//						stateString = 0;
+//					}
+//				}
+//			}
+//		}
+//	}
+	
 	public void proceso() {
 		String iterated = "";
 		String stringFound = "";
+		String nameFunction = "";
+		boolean nombreFuncion;
 		int stateString = 0;
 		for(String linea: codigo) {
+			nombreFuncion = false;
 			for(char x: linea.toCharArray()) {
 				iterated += x;	
-				
-				if(iterated.equals("\t") || iterated.equals(" ")) {
+					
+				if(iterated.equals("\t") || iterated.equals(" ")) {            //Quitar si hay tabulacion en el archivo
 					iterated = "";
 				} 
 				//System.out.println(iterated);
-				if(iterated.equals("princ")) {
-					System.out.println("Print encontrado");
+				if(iterated.contains("princ")) {									//Por si se encuentra un print
+					System.out.println("Print encontrado, el siguiente string sera lo que se pide");
 					iterated = "";
+				}else if(iterated.contains("defun")) {							//Por si se encuentra una funcion
+					System.out.println("funcion encontrada: ");
+					iterated = "";
+					nombreFuncion = true;										//Funcion encontrada
 				}
-				if(stateString == 1) {
+				
+				//=============================Parte del print==============================
+				if(stateString == 1) {											//Para seleccionar el string por caracter hasta que encuentre comillas
 					stringFound += x;
 				}
 				if(x == '\"') {
@@ -67,13 +110,20 @@ public class Interprete {
 						stateString = 1;
 					}
 					else{
-						System.out.println("String encontrado: ");
+						stringFound = stringFound.substring(0, stringFound.length() - 1).trim();
+						System.out.println("String encontrado: ");				//Mensaje de string encontrado
 						System.out.println(stringFound);
 						stringFound = "";
 						stateString = 0;
 					}
 				}
 			}
+			
+			if(nombreFuncion) {
+				nameFunction = iterated.trim();
+				System.out.println(nameFunction);
+			}
+			
 		}
 	}
 	
