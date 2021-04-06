@@ -14,7 +14,7 @@ public class Interprete {
 	private Lector lec = new Lector();
 	private Imprimir im = new Imprimir();
 	private Definir def = new Definir();
-	private Calcular calc = new Calcular();
+	private Calcular calc = new Calcular(def);
 	
 	Scanner sc = new Scanner(System.in);
 	

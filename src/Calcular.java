@@ -10,14 +10,13 @@ public class Calcular {
     private ArrayList<String> operadores;
     private HashMap<String, String> variables;
     private Definir def;
-    
-    public Calcular(){
+
+    public Calcular(Definir def){
         operadores= new ArrayList<String>(List.of("+", "-", "/", "*"));
         String caracteresString="qwertyuiopasdfghjklñzxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNM-_";
         caracteres= new ArrayList<String>(Arrays.asList(caracteresString.split("")));
         String numerosString="1234567890";
         numeros = new ArrayList<String>(Arrays.asList(numerosString.split("")));
-        def = new Definir();
         variables= def.getVariables();
     }
     public String operar (String cadenaAOperear){
@@ -109,7 +108,7 @@ public class Calcular {
                     }
                 }
                 if(encontroOperadorComoVariable){
-                    if(!caracter.equals(" ")) temporalAcumulado=temporalAcumulado+caracter;
+                    if(!caracter.equals(" ")&&!caracter.equals(")")) temporalAcumulado=temporalAcumulado+caracter;
                     else{
                         segundoOperando=temporalAcumulado;
                         temporalAcumulado="";
