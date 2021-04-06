@@ -3,127 +3,107 @@ package src;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 //Puede servir luego
 //Por si quieren ver que son los predicadores:  http://web.cs.ucla.edu/~rosen/161/notes/lisp1.html#:~:text=Everything%20in%20Lisp%20is%20either,list)%2C%20ATOM%20returns%20NIL.
 
 public class Interprete {
 	
-	private ArrayList<String> codigo;
+	private ArrayList<String> codigo = new ArrayList<String>();
+	private Lector lec = new Lector();
+	private Imprimir im = new Imprimir();
+	private Definir def = new Definir();
+	private Calcular calc = new Calcular();
 	
+	Scanner sc = new Scanner(System.in);
 	
 	public Interprete() {
-		codigo = new ArrayList<String>();
-		leerDocumento();
+		codigo = lec.leerDocumento();
 	}
     
-	//Prueba para lectura de datos y creacion del interprete
-    
-	public void leerDocumento() {
-		String texto = new String();
-		try {
-			FileReader fr = new FileReader("./assets/datos.txt");
-			BufferedReader entrada = new BufferedReader(fr); 
-			String s;
-			
-			while((s = entrada.readLine()) != null) {
-				//String[] temp = s.split(", ");
-				codigo.add(s);
-			}
-			
-		}
-		catch(java.io.FileNotFoundException fnfex) {
-			System.out.println("Archivo no encontrado: " + fnfex);}
-		catch(java.io.IOException ioex) {}
-	}
-	
 	public void vistaPrueba() {
 		for(String linea: codigo) {
 			System.out.println(linea);
 		}
 	}
 	
-//	public void proceso() {
-//		String iterated = "";
-//		String stringFound = "";
-//		int stateString = 0;
-//		for(String linea: codigo) {
-//			for(char x: linea.toCharArray()) {
-//				iterated += x;	
-//				
-//				if(iterated.equals("\t") || iterated.equals(" ")) {
-//					iterated = "";
-//				} 
-//				//System.out.println(iterated);
-//				if(iterated.equals("princ")) {
-//					System.out.println("Print encontrado");
-//					iterated = "";
-//				}
-//				if(stateString == 1) {
-//					stringFound += x;
-//				}
-//				if(x == '\"') {
-//					if(stateString == 0) {
-//						stateString = 1;
-//					}
-//					else{
-//						System.out.println("String encontrado: ");
-//						System.out.println(stringFound);
-//						stringFound = "";
-//						stateString = 0;
-//					}
-//				}
-//			}
-//		}
-//	}
-	
 	public void proceso() {
 		String iterated = "";
-		String stringFound = "";
-		String nameFunction = "";
+		String nameFunction;
+		ArrayList<String> functionContain = new ArrayList<String>();
+		
+		int contadorFuncion = 0;
+		
+		boolean reading = true;
 		boolean nombreFuncion;
-		int stateString = 0;
+		boolean lectorFuncion = false;
+		boolean calculo;
+
 		for(String linea: codigo) {
-			nombreFuncion = false;
-			for(char x: linea.toCharArray()) {
-				iterated += x;	
-					
-				if(iterated.equals("\t") || iterated.equals(" ")) {            //Quitar si hay tabulacion en el archivo
-					iterated = "";
-				} 
-				//System.out.println(iterated);
-				if(iterated.contains("princ")) {									//Por si se encuentra un print
-					System.out.println("Print encontrado, el siguiente string sera lo que se pide");
-					iterated = "";
-				}else if(iterated.contains("defun")) {							//Por si se encuentra una funcion
-					System.out.println("funcion encontrada: ");
-					iterated = "";
-					nombreFuncion = true;										//Funcion encontrada
-				}
-				
-				//=============================Parte del print==============================
-				if(stateString == 1) {											//Para seleccionar el string por caracter hasta que encuentre comillas
-					stringFound += x;
-				}
-				if(x == '\"') {
-					if(stateString == 0) {
-						stateString = 1;
+				nameFunction = "";
+				calculo = false;
+				nombreFuncion = false;
+				for(char x: linea.toCharArray()) {
+					iterated += x;	
+						
+					if(iterated.equals("\t") || iterated.equals(" ")) {            //Quitar si hay tabulacion en el archivo
+						iterated = "";
+					} 
+					if(x == '(') {
+						contadorFuncion +=1;
+					}else if (x == ')') {
+						contadorFuncion -= 1;
 					}
-					else{
-						stringFound = stringFound.substring(0, stringFound.length() - 1).trim();
-						System.out.println("String encontrado: ");				//Mensaje de string encontrado
-						System.out.println(stringFound);
-						stringFound = "";
-						stateString = 0;
+					//System.out.println(iterated);
+					if(iterated.contains("princ")) {									//Por si se encuentra un princ
+						System.out.println("Princ encontrado, el siguiente string sera lo que se pide");
+						System.out.println(im.resPrint(linea));
+						iterated = "";
+					}else if(iterated.contains("print")) {									//Por si se encuentra un print
+						System.out.println("Print encontrado, el siguiente string sera lo que se pide");
+						System.out.println(im.resPrint(linea));
+						iterated = "";
+					}else if(iterated.contains("defun")) {							//Por si se encuentra una funcion
+						System.out.println("funcion encontrada: ");
+						iterated = "";
+						nombreFuncion = true;										//Funcion encontrada
+					}else if(iterated.contains("setq")) {							//Por si se encuentra un setq
+						System.out.print("setq encontrado: ");
+						iterated = "";
+						String[] values = im.resRead(linea.replace("setq", ""));
+						def.guardarVariable(values[0], values[1]);
+						System.out.println("Variable: " + values[0] + " Valor de variable: " + values[1]);									
+					}else if(iterated.contains("/") || iterated.contains("-") || iterated.contains("+") || iterated.contains("*")) {
+						calculo = true;
 					}
 				}
-			}
-			
-			if(nombreFuncion) {
-				nameFunction = iterated.trim();
-				System.out.println(nameFunction);
-			}
-			
+				if(nombreFuncion) {													//Se activa si se encuentra una funcion
+					nameFunction = iterated.trim();
+					contadorFuncion = 1;
+					lectorFuncion = true;
+					System.out.println(nameFunction);
+				}
+				if(lectorFuncion) {
+					functionContain.add(linea);
+					if(contadorFuncion == 0) {
+						lectorFuncion = false;
+						def.guardarFuncion(nameFunction, functionContain);
+						System.out.println("Se guardo la siguiente funcion correctamente: ");
+						ArrayList<String> instrucciones = def.mostrarFuncion(nameFunction);
+						if(instrucciones != null || !instrucciones.isEmpty()) {
+							for(String l: instrucciones) {
+								System.out.println(l);
+							}
+						}else {
+							System.out.println("La funcion no existe");
+						}
+						functionContain.clear();
+					}
+				}
+				if(calculo) {
+					System.out.println(calc.operar(linea));
+				}
 		}
 	}
 	

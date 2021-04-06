@@ -1,6 +1,8 @@
+(print "Encontro una impresion con t ")
+
 (defun conversor()
     (princ "Ingrese los grados a convertir(F): ")
     (setq grados (read))
     (*(/ 5 9) ( - grados 32)	
-)
+))
 (conversor)

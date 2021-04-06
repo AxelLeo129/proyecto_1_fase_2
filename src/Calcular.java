@@ -9,14 +9,16 @@ public class Calcular {
     private ArrayList<String> numeros;
     private ArrayList<String> operadores;
     private HashMap<String, String> variables;
-
+    private Definir def;
+    
     public Calcular(){
         operadores= new ArrayList<String>(List.of("+", "-", "/", "*"));
         String caracteresString="qwertyuiopasdfghjklñzxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNM-_";
         caracteres= new ArrayList<String>(Arrays.asList(caracteresString.split("")));
         String numerosString="1234567890";
         numeros = new ArrayList<String>(Arrays.asList(numerosString.split("")));
-        variables= new HashMap();
+        def = new Definir();
+        variables= def.getVariables();
     }
     public String operar (String cadenaAOperear){
         boolean operadorEncontrado=false;
