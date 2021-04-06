@@ -9,7 +9,6 @@ public class Calcular {
     private ArrayList<String> numeros;
     private ArrayList<String> operadores;
     private HashMap<String, String> variables;
-    private Definir def;
 
     public Calcular(Definir def){
         operadores= new ArrayList<String>(List.of("+", "-", "/", "*"));
@@ -63,7 +62,7 @@ public class Calcular {
                 if(encontroOperadorComoVariable){
                     if(!caracter.equals(" ")) temporalAcumulado=temporalAcumulado+caracter;
                     else{
-                        primerOperando=temporalAcumulado;
+                        primerOperando=variables.get(temporalAcumulado);
                         temporalAcumulado="";
                         operadorUnoEncontrado=true;
 
@@ -110,7 +109,7 @@ public class Calcular {
                 if(encontroOperadorComoVariable){
                     if(!caracter.equals(" ")&&!caracter.equals(")")) temporalAcumulado=temporalAcumulado+caracter;
                     else{
-                        segundoOperando=temporalAcumulado;
+                        segundoOperando=variables.get(temporalAcumulado);
                         temporalAcumulado="";
                         operadorDosEncontrado=true;
 
