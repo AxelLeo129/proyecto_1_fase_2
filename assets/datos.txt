@@ -1,4 +1,4 @@
-(print "Encontro una impresion con t ")
+(print "Archivo de prueba de conversor ")
 
 (defun conversor()
     (princ "Ingrese los grados a convertir(F): ")

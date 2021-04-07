@@ -21,7 +21,6 @@ public class Imprimir {
 				}
 				else{
 					iterated = iterated.substring(0, iterated.length() - 1).trim();
-					System.out.println("String encontrado: ");
 					stateString = 0;
 				}
 			}
@@ -39,7 +38,6 @@ public class Imprimir {
 		nameVariableSetQ = temp[0];
 		
 		if(temp[1].equals("read")) {
-			//System.out.println("Tiene que esperar respuesta");
 			nameValueVariableSetQ = sc.nextLine();
 		}else {
 			nameValueVariableSetQ = temp[1];
