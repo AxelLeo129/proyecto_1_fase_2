@@ -1,0 +1,13 @@
+(defun solfibo()
+    (princ "Ingrese el numero n de la serie: ")
+    (setq num (read))
+    (setq value (fibonacci num))
+)
+
+(defun fibonacci(n)
+    (if (< n 2)
+    n
+    (+ (fibonacci (- n 1)) (fibonacci (- n 2))))
+)
+
+(solfibo)

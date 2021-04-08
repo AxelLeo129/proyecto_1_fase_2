@@ -9,9 +9,8 @@ public class Lector {
 	//Metodo para leer documento y enviar lineas de codigo
 	public ArrayList<String> leerDocumento() {
 		ArrayList<String> codigo = new ArrayList<String>();
-		String texto = new String();
 		try {
-			FileReader fr = new FileReader("./assets/datos.txt");
+			FileReader fr = new FileReader("./assets/fibonacci.txt");
 			BufferedReader entrada = new BufferedReader(fr); 
 			String s;
 			
