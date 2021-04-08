@@ -3,9 +3,6 @@ package src;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//Puede servir luego
-//Por si quieren ver que son los predicadores:  http://web.cs.ucla.edu/~rosen/161/notes/lisp1.html#:~:text=Everything%20in%20Lisp%20is%20either,list)%2C%20ATOM%20returns%20NIL.
-
 public class Interprete {
 
 	private ArrayList < String > codigo = new ArrayList < String > ();
@@ -21,21 +18,31 @@ public class Interprete {
 		codigo = lec.leerDocumento();
 	}
 
+	/** 
+	 * Un metodo generado con el fin de poder crear la vista prueba que serviria para empezar a ver las lineas de codigo
+	 */
 	public void vistaPrueba() {
 		for (String linea: codigo) {
 			System.out.println(linea);
 		}
 	}
 
+	/** 
+	 * Metodo que manda a ejecutar el codigo cuando de verdad se requiere
+	 */
 	public void ejecutar() {
 		proceso(codigo);
 	}
 
+	/** 
+	 * El centro de control del proceso. Pueden ocurrir 2 situaciones aca:
+	 * 1. El codigo solo esta guardando los pasos para almacenar una funcion.
+	 * 2. El proceso esta ejecutando el codigo
+	 */ 
 	public void proceso(ArrayList < String > code) {
 		String iterated = "";
 		String nameFunction = "";
 		ArrayList < String > functionContain = new ArrayList < String > ();
-		//def.guardarVariable(values[0], values[1]);
 		boolean nombreFuncion = false;
 		int contador_funcion = 0;
 		boolean lectorFuncion = false;
@@ -87,18 +94,13 @@ public class Interprete {
 					System.out.println(values[1]);
 				} else if(iterated.contains("if") && !dentro_funcion) {
 					iterated = "";
-					boolean resultado = pre.condicional(linea.replace("if", ""));
+					boolean resultado = pre.condicional(linea.replace("if", "")); // Por si encuentra un if
 					if(!resultado) {
 						segundo = true;
 					}else primero = true;
 				} else if ((iterated.contains("/") || iterated.contains("-") || iterated.contains("+") || iterated.contains("*")) && !dentro_funcion) {
 					calculo = true;
-				}
-				
-				
-				
-				
-				else if (!dentro_funcion) {
+				}else if (!dentro_funcion) {
 					if (iterated.length() > 2) {
 						if (!iterated.substring(iterated.length() - 1).equals(" ")) {
 							StringBuilder sb = new StringBuilder(iterated.trim());
@@ -160,7 +162,6 @@ public class Interprete {
 				System.out.println(calc.operar(linea));
 			}
 		}
-		//def.getFunciones().forEach((k, v) -> System.out.println("Key: " + k + ": Value: " + v));
 	}
 
 	public ArrayList < String > createCopy(ArrayList < String > orginal) {
@@ -170,25 +171,4 @@ public class Interprete {
 		}
 		return copy;
 	}
-
-	/*public void mostrarSerie(int tamanio){
-		for (int i = 0; i < tamanio; i++) {
-			System.out.print(fibonacci(i)+" ");
-		}
-		System.out.println();
-	}
-
-	public int fibonacci(int n) {
-        if (n > 1) {
-            return fibonacci(n - 1) + fibonacci(n - 2); //función recursiva
-        } else if (n == 1) { // caso base
-            return 1;
-        } else if (n == 0) { // caso base
-            return 0;
-        } else { //error
-            System.out.println("Debes ingresar un tamaño mayor o igual a 1");
-            return -1;
-        }
-    }*/
-
 }

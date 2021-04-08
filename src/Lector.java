@@ -6,7 +6,10 @@ import java.util.ArrayList;
 
 public class Lector {
 	
-	//Metodo para leer documento y enviar lineas de codigo
+	/** 
+	 * @return ArrayList<String>
+	 * Metodo para leer documento y enviar lineas de codigo
+	 */ 
 	public ArrayList<String> leerDocumento() {
 		ArrayList<String> codigo = new ArrayList<String>();
 		try {

@@ -19,6 +19,10 @@ public class Calcular {
         variables= def.getVariables();
     }
 
+    /** 
+	 * @return String
+	 * Se le envia una linea completa de codigo para operar y la devuelve como un valor de tipo string
+	 */ 
     public String operar (String cadenaAOperear){
         boolean operadorEncontrado=false;
         boolean operadorUnoEncontrado=false;
@@ -129,9 +133,6 @@ public class Calcular {
             }
 
         }
-        /*System.out.println(operador);
-        System.out.println(primerOperando);
-        System.out.println(segundoOperando);*/
         if(!operador.equals("")&&!primerOperando.equals("")&&!segundoOperando.equals("")){
             switch (operador){
                 case "*":return String.valueOf(Float.parseFloat(primerOperando)*Float.parseFloat(segundoOperando));
@@ -141,7 +142,6 @@ public class Calcular {
                 default: return "Ocurrio un error inesperado";
             }
         }else return "";
-        //else return "Hubo un problema con la expresion ingresada";
 
     }
 

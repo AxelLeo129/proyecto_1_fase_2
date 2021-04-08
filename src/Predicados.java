@@ -10,6 +10,10 @@ public class Predicados {
 		variables = def.getVariables();
 	}
 	
+	/**
+	 * @return boolean
+	 * Se activa cuando se le envia una linea de codigo completa y solamente realiza la validacion
+	 */
 	public boolean condicional(String condicion) {
 		int var1 = 0, var2 = 0;
 		condicion = condicion.replace("(", "");

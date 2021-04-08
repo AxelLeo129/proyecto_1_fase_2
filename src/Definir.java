@@ -16,10 +16,17 @@ public class Definir {
 	 
 	 
 	 //======================================FUNCIONES=========================================
+	 /** 
+	 * Guarda una funcion en el Hash
+	 */ 
 	 public void guardarFuncion(String nombre, ArrayList<String> instrucciones) {
 		funciones.put(nombre, instrucciones);
 	 }
 	 
+	 /** 
+	 * @return ArrayList<String>
+	 * Muestra todas las funciones guardadas
+	 */ 
 	 public ArrayList<String> mostrarFuncion(String keyValue) {
 		 ArrayList<String> resultado = new ArrayList<String>();
 		 resultado = null;
@@ -32,11 +39,17 @@ public class Definir {
 	}
 	 
 	//======================================VARIBLES=========================================
-    
+	 /** 
+	 * Metodo para guardar una variable en el Hash
+	 */ 
 	 public void guardarVariable(String nombre, String value) {
 		 variables.put(nombre, value);
 	 }
 	 
+	 /** 
+	 * @return String
+	 * Muestra una variable seleccionada por su KeyValue.
+	 */ 
 	 public String mostrarVariable(String keyValue) {
 		 String valueToReturn = "";
 		 for(Map.Entry<String, String> varibleIndividual: variables.entrySet()) {	
@@ -59,14 +72,23 @@ public class Definir {
 		return funciones;
 	}
 
+	/**
+	 * @return las variables
+	 */
 	public String getValor(String nombre) {
 		return variables.get(nombre);
 	}
 
+	/**
+	 * @return El cuerpo de la funcion
+	 */
 	public ArrayList<String> getBody(String key) {
 		return funciones.get(key);
 	}
 
+	/**
+	 * @return El tamano del array
+	 */
 	public int getSize() {
 		return funciones.size();
 	}

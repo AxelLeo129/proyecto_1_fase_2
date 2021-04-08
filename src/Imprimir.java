@@ -8,6 +8,10 @@ public class Imprimir {
 	
 	public Imprimir() {}
 	
+	/** 
+	 * @return String
+	 * Recibe si se encuentra un print en pantalla y empieza a imprimir todos los necesarios.
+	 */ 
 	public String resPrint(String lineaCodigo) {
 		String iterated = "";
 		int stateString = 0;
@@ -28,6 +32,10 @@ public class Imprimir {
 		return iterated;
 	}
 	
+	/** 
+	 * @return  String
+	 * Se activa por si se realiza una entrada al codigo desde afuera.
+	 */ 
 	public String[] resRead(String lineaCodigo) {
 		lineaCodigo = lineaCodigo.replace("(", "");
 		lineaCodigo = lineaCodigo.replace(")", "");
