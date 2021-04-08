@@ -13,6 +13,7 @@ public class Interprete {
 	private Imprimir im = new Imprimir();
 	private Definir def = new Definir();
 	private Calcular calc = new Calcular(def);
+	private Predicados pre = new Predicados(def);
 
 	Scanner sc = new Scanner(System.in);
 
@@ -39,8 +40,17 @@ public class Interprete {
 		boolean lectorFuncion = false;
 		boolean dentro_funcion = false;
 		boolean calculo = false;
+		boolean primero = false, segundo = false;
 
 		for (String linea: code) {
+			if(segundo) {   //Hecho para ignorar la linea de un if que se active
+				segundo = false;
+				continue;
+			}
+			if(primero) {
+				primero = false;
+				segundo = true;
+			}
 			for (char x: linea.toCharArray()) {
 				iterated += x;
 				lectorFuncion = iterated.contains("defun");
@@ -69,6 +79,12 @@ public class Interprete {
 					iterated = "";
 					String[] values = im.resRead(linea.replace("setq", ""));
 					def.guardarVariable(values[0], values[1]);
+				} else if(iterated.contains("if") && !dentro_funcion) {
+					iterated = "";
+					boolean resultado = pre.condicional(linea.replace("if", ""));
+					if(!resultado) {
+						segundo = true;
+					}else primero = true;
 				} else if ((iterated.contains("/") || iterated.contains("-") || iterated.contains("+") || iterated.contains("*")) && !dentro_funcion) {
 					calculo = true;
 				} else if (!dentro_funcion) {
