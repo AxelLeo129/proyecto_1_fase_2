@@ -1,0 +1,8 @@
+(defun pruebaIf()
+(setq n 16)
+(if (> n 15)
+(print "Correcto")
+(print "Incorrecto")
+))
+
+(pruebaIf)
