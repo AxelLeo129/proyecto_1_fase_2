@@ -59,6 +59,10 @@ public class Definir {
 		return funciones;
 	}
 
+	public String getValor(String nombre) {
+		return variables.get(nombre);
+	}
+
 	public ArrayList<String> getBody(String key) {
 		return funciones.get(key);
 	}
