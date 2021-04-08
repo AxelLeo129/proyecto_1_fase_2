@@ -11,7 +11,7 @@ public class Lector {
 		ArrayList<String> codigo = new ArrayList<String>();
 		String texto = new String();
 		try {
-			FileReader fr = new FileReader("./assets/pruebaIf.txt");
+			FileReader fr = new FileReader("./assets/datos.txt");
 			BufferedReader entrada = new BufferedReader(fr); 
 			String s;
 			
