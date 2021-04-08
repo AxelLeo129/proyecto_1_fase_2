@@ -1,0 +1,33 @@
+(defun solfibo()
+(princ "Ingrese el numero n de la serie: ")
+(setq num (read))
+(set' value (fibonacci num))
+)
+
+(defun fibonacci(n)
+(if (< n 2)
+n
+(+ (fibonacci (- n 1)) (fibonacci (- n 2))))
+)
+
+(defun conversor()
+(princ "Ingrese los grados a convertir(F): ")
+(setq grados (read))
+(*(/ 5 9) ( - grados 32)	
+))
+
+(defun sistema()
+(print "Bienvenido al sistema")
+
+(print "Seleccione la opcion mas favorable")
+(print "1. Serie de Fibonacci")
+(print "2. Convertir grados F a °C")
+(princ "Ingrese la opcion que desea: ")
+(setq sel (read))
+(if(> sel 1)
+(conversor)
+(solfibo))
+)
+
+(sistema)
+
