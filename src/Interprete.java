@@ -15,6 +15,7 @@ public class Interprete {
 	private Imprimir im = new Imprimir();
 	private Definir def = new Definir();
 	private Calcular calc = new Calcular(def);
+	private Predicados pre = new Predicados(def);
 	
 	Scanner sc = new Scanner(System.in);
 	
@@ -43,12 +44,25 @@ public class Interprete {
 		boolean lectorFuncion = false;
 		boolean calculo;
 
+		boolean primero = false, segundo = false;
 		for(String linea: codigo) {
 				nameFunction = "";
 				calculo = false;
 				nombreFuncion = false;
+				
+				if(segundo) {   //Hecho para ignorar la linea de un if que se active
+					segundo = false;
+					continue;
+				}
+				if(primero) {
+					primero = false;
+					segundo = true;
+				}
+				
 				for(char x: linea.toCharArray()) {
 					iterated += x;	
+					
+					
 						
 					if(iterated.equals("\t") || iterated.equals(" ")) {            //Quitar si hay tabulacion en el archivo
 						iterated = "";
@@ -70,7 +84,13 @@ public class Interprete {
 					}else if(iterated.contains("setq")) {							//Por si se encuentra un setq
 						iterated = "";
 						String[] values = im.resRead(linea.replace("setq", ""));
-						def.guardarVariable(values[0], values[1]);									
+						def.guardarVariable(values[0], values[1]);		
+					}else if(iterated.contains("if")) {
+						iterated = "";
+						boolean resultado = pre.condicional(linea.replace("if", ""));
+						if(!resultado) {
+							segundo = true;
+						}else primero = true;
 					}else if(iterated.contains("/") || iterated.contains("-") || iterated.contains("+") || iterated.contains("*")) {
 						calculo = true;
 					}
