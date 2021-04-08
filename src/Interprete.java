@@ -95,7 +95,15 @@ public class Interprete {
 							sb.deleteCharAt(0);
 							sb.deleteCharAt(0);
 							String nombre = sb.toString();
-							ArrayList < String > funcion = def.getBody(nombre + "()");
+							String[] nombre_arreglo = nombre.split(" ");
+							ArrayList < String > funcion = new ArrayList<>();
+							if(nombre_arreglo.length > 1) {
+								funcion = def.getBody(nombre + "(n)");
+								String valor = def.getValor(nombre_arreglo[1]);
+
+							} else {
+								funcion = def.getBody(nombre + "()");
+							}
 							if (funcion != null) {
 								proceso(funcion);
 							}
