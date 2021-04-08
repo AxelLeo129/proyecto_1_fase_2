@@ -1,13 +1,13 @@
-(defun solfibo()
-(princ "Ingrese el numero n de la serie: ")
+(defun solfact()
+(princ "Ingrese el numero n del factorial: ")
 (setq num (read))
-(set' value (fibonacci num))
+(set' value (factorial num))
 )
 
-(defun fibonacci(n)
+(defun factorial(n)
 (if (< n 2)
-n
-(+ (fibonacci (- n 1)) (fibonacci (- n 2))))
+1
+(* n (factorial (- n 1))))
 )
 
 (defun conversor()
@@ -21,13 +21,13 @@ n
 
 (print "Seleccione la opcion mas favorable")
 (print "1. Serie de Fibonacci")
-(print "2. Convertir grados F a Â°C")
+(print "2. Convertir grados F a °C")
 (princ "Ingrese la opcion que desea: ")
 (setq sel (read))
 (if(> sel 1)
 (conversor)
-(solfibo))
-)
+(solfibo)
+))
 
 (sistema)
 

@@ -10,7 +10,7 @@ public class Lector {
 	public ArrayList<String> leerDocumento() {
 		ArrayList<String> codigo = new ArrayList<String>();
 		try {
-			FileReader fr = new FileReader("./assets/fibonacci.txt");
+			FileReader fr = new FileReader("./assets/datos.txt");
 			BufferedReader entrada = new BufferedReader(fr); 
 			String s;
 			

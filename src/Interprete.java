@@ -35,6 +35,7 @@ public class Interprete {
 		String iterated = "";
 		String nameFunction = "";
 		ArrayList < String > functionContain = new ArrayList < String > ();
+		//def.guardarVariable(values[0], values[1]);
 		boolean nombreFuncion = false;
 		int contador_funcion = 0;
 		boolean lectorFuncion = false;
@@ -79,6 +80,11 @@ public class Interprete {
 					iterated = "";
 					String[] values = im.resRead(linea.replace("setq", ""));
 					def.guardarVariable(values[0], values[1]);
+				} else if (iterated.contains("set'") && !dentro_funcion) { //Por si se encuentra un set'
+					iterated = "";
+					String[] values = im.resRead(linea.replace("set'", ""));
+					def.guardarVariable(values[0], values[1]);
+					System.out.println(values[1]);
 				} else if(iterated.contains("if") && !dentro_funcion) {
 					iterated = "";
 					boolean resultado = pre.condicional(linea.replace("if", ""));
@@ -87,7 +93,12 @@ public class Interprete {
 					}else primero = true;
 				} else if ((iterated.contains("/") || iterated.contains("-") || iterated.contains("+") || iterated.contains("*")) && !dentro_funcion) {
 					calculo = true;
-				} else if (!dentro_funcion) {
+				}
+				
+				
+				
+				
+				else if (!dentro_funcion) {
 					if (iterated.length() > 2) {
 						if (!iterated.substring(iterated.length() - 1).equals(" ")) {
 							StringBuilder sb = new StringBuilder(iterated.trim());
@@ -99,8 +110,8 @@ public class Interprete {
 							ArrayList < String > funcion = new ArrayList<>();
 							if(nombre_arreglo.length > 1) {
 								funcion = def.getBody(nombre + "(n)");
-								String valor = def.getValor(nombre_arreglo[1]);
-
+								def.guardarVariable("n", nombre_arreglo[1]);
+								//System.out.println(def.getFunciones());
 							} else {
 								funcion = def.getBody(nombre + "()");
 							}
@@ -111,6 +122,8 @@ public class Interprete {
 
 					}
 
+				} else {
+					
 				}
 				if (nombreFuncion) {
 					String caracter = "";

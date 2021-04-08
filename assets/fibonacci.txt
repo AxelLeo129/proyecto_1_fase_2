@@ -1,13 +1,7 @@
-(defun solfact()
-    (princ "Ingrese el numero n de la serie: ")
-    (setq num (read))
-    (set' value (factorial num))
-)
-
 (defun factorial(n)
 (if (< n 2)
 1
 (* n (factorial (- n 1))))
 )
 
-(solfact)
+(factorial 5)

@@ -1,4 +1,5 @@
-(print "Archivo de prueba de conversor ")
+(print "Conversor de grados Farenheit a Centigrados")
+(print "")
 
 (defun conversor()
     (princ "Ingrese los grados a convertir(F): ")
