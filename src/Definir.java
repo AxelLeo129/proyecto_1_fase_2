@@ -17,7 +17,7 @@ public class Definir {
 	 
 	 //======================================FUNCIONES=========================================
 	 public void guardarFuncion(String nombre, ArrayList<String> instrucciones) {
-		 funciones.put(nombre, instrucciones);
+		funciones.put(nombre, instrucciones);
 	 }
 	 
 	 public ArrayList<String> mostrarFuncion(String keyValue) {
@@ -59,6 +59,13 @@ public class Definir {
 		return funciones;
 	}
 
+	public ArrayList<String> getBody(String key) {
+		return funciones.get(key);
+	}
+
+	public int getSize() {
+		return funciones.size();
+	}
 
 	/**
 	 * @return the variables
