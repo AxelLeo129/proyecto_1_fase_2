@@ -18,6 +18,7 @@ public class Calcular {
         numeros = new ArrayList<String>(Arrays.asList(numerosString.split("")));
         variables= def.getVariables();
     }
+
     public String operar (String cadenaAOperear){
         boolean operadorEncontrado=false;
         boolean operadorUnoEncontrado=false;
@@ -32,7 +33,7 @@ public class Calcular {
         cadenaAOperear= cadenaAOperear.trim();
         String[] listaCadena = cadenaAOperear.split("");
         listaCadena[0]="";
-        for (String caracter: listaCadena){
+        for (String caracter: listaCadena) {
             if(!operadorEncontrado){
                 if(operadores.contains(caracter)) {
                     operadorEncontrado=true;
@@ -128,6 +129,9 @@ public class Calcular {
             }
 
         }
+        /*System.out.println(operador);
+        System.out.println(primerOperando);
+        System.out.println(segundoOperando);*/
         if(!operador.equals("")&&!primerOperando.equals("")&&!segundoOperando.equals("")){
             switch (operador){
                 case "*":return String.valueOf(Float.parseFloat(primerOperando)*Float.parseFloat(segundoOperando));
@@ -136,9 +140,9 @@ public class Calcular {
                 case "/":return String.valueOf(Float.parseFloat(primerOperando)/Float.parseFloat(segundoOperando));
                 default: return "Ocurrio un error inesperado";
             }
-        }else return "Hubo un problema con la expresion ingresada";
+        }else return "";
+        //else return "Hubo un problema con la expresion ingresada";
 
     }
-
 
 }
